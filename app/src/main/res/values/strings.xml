@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Homework 1</string>
+    <string name="characters">Characters</string>
+    <string name="favourites">Favourites</string>
+    <string name="name">Name</string>
+    <string name="status">Status</string>
+    <string name="species">Species</string>
+    <string name="type">Type</string>
+    <string name="gender">Gender</string>
+    <string name="origin">Origin</string>
+    <string name="location">Location</string>
 </resources>
