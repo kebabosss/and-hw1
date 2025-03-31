@@ -31,7 +31,7 @@ fun Navigation (modifier: Modifier = Modifier) {
             CharacterList(navController)
         }
         composable<Search> {
-            SearchScreen(navController)
+            SearchScreen(navController, viewModel = SearchViewModel())
         }
         composable<Detail> { entry ->
             val charDetail = entry.toRoute<Detail>()
