@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import cz.fit.cvut.biand.homework1.Detail
@@ -40,7 +41,8 @@ import cz.fit.cvut.biand.homework1.model.characters
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchScreen(navController: NavController, viewModel: SearchViewModel) {
+fun SearchScreen(navController: NavController) {
+    val viewModel = viewModel<SearchViewModel>()
     val searchResults by viewModel.searchResults.collectAsStateWithLifecycle()
 
     SearchBar(

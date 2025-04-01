@@ -27,6 +27,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
@@ -50,6 +53,7 @@ import cz.fit.cvut.biand.homework1.model.characters
 @Composable
 fun CharacterDetail(navController: NavController, id : Int) {
     val character = characters.find {it.id == id}
+    //val icon = remember {mutableStateOf(R.drawable.star_full)}
     character?.let {
         Scaffold (
             topBar = {
