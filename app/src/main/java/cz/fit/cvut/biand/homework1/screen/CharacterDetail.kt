@@ -1,6 +1,5 @@
 package cz.fit.cvut.biand.homework1.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,43 +8,35 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.colorspace.WhitePoint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import cz.fit.cvut.biand.homework1.Detail
 import cz.fit.cvut.biand.homework1.R
-import cz.fit.cvut.biand.homework1.Search
 import cz.fit.cvut.biand.homework1.model.Character
 import cz.fit.cvut.biand.homework1.model.characters
 
@@ -53,20 +44,35 @@ import cz.fit.cvut.biand.homework1.model.characters
 @Composable
 fun CharacterDetail(navController: NavController, id : Int) {
     val character = characters.find {it.id == id}
-    //val icon = remember {mutableStateOf(R.drawable.star_full)}
+    var liked by rememberSaveable {mutableStateOf(false)}
     character?.let {
         Scaffold (
             topBar = {
                 TopAppBar(
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.background
+                    ),
                     title = {
                         Text(character.name,
                         fontWeight = FontWeight.Bold )
                     },
                     actions = {
-                        IconButton(onClick = { })
+                        IconButton(onClick = { liked = !liked })
                         {
-                            Icon(painter = painterResource(id = R.drawable.star_full), contentDescription = null)
-                            //TODO (star fun)
+                            if(liked) {
+                                Icon(
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    painter = painterResource(id = R.drawable.star_full_blue),
+                                    contentDescription = null
+                                )
+                            }
+                            else{
+                                Icon(
+                                    painter = painterResource(id = R.drawable.star_empty),
+                                    contentDescription = null
+                                )
+                            }
+
                         }
                     },
                     navigationIcon = {  IconButton(onClick = { navController.navigateUp() }) {
@@ -77,9 +83,9 @@ fun CharacterDetail(navController: NavController, id : Int) {
             }
         )
         { paddingValues ->
-           Card (modifier = Modifier
+           OutlinedCard (modifier = Modifier
                .padding(paddingValues)
-               .padding(horizontal = 16.dp)
+               .padding(horizontal = 16.dp),
            )
            {
                Column (modifier = Modifier.verticalScroll(rememberScrollState())){
@@ -110,14 +116,17 @@ fun InfoPair(title : String, data : String)
 {
     var actualData = data
     Column {
-        Text(title)
+        Text(
+            title,
+            color = MaterialTheme.colorScheme.tertiary,
+        )
         if(data == "")
         {
             actualData = "-"
         }
         Text(
             actualData,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
         )
     }
 }
@@ -125,7 +134,7 @@ fun InfoPair(title : String, data : String)
 @Composable
 fun MainCard(character: Character)
 {
-    Card(
+    OutlinedCard(
         modifier = Modifier
             .height(128.dp)
     )
@@ -146,7 +155,19 @@ fun MainCard(character: Character)
 
             )
 
-            InfoPair(title = stringResource(R.string.name), data = character.name)
+            Column {
+                Text(
+                    stringResource(R.string.name),
+                    color = MaterialTheme.colorScheme.tertiary,
+                    fontSize = 24.sp,
+                )
+                Text(
+                    character.name,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 24.sp,
+                )
+                Spacer(Modifier.height(40.dp))
+            }
         }
 
     }

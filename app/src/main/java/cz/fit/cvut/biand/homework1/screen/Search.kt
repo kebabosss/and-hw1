@@ -12,9 +12,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
@@ -24,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,6 +46,7 @@ import cz.fit.cvut.biand.homework1.model.characters
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(navController: NavController) {
+    val controller = LocalSoftwareKeyboardController.current
     val viewModel = viewModel<SearchViewModel>()
     val searchResults by viewModel.searchResults.collectAsStateWithLifecycle()
 
@@ -50,7 +55,7 @@ fun SearchScreen(navController: NavController) {
             SearchBarDefaults.InputField(
                 query = viewModel.searchQuery,
                 onQueryChange = viewModel::onSearchQueryChange,
-                onSearch = {  },
+                onSearch = { controller?.hide() },
                 expanded = true,
                 onExpandedChange = { },
                 placeholder = { Text("Search characters") },
@@ -83,26 +88,36 @@ fun SearchScreen(navController: NavController) {
 @Composable
 fun SearchItem(character: Character, navController: NavController)
 {
-    Row (modifier = Modifier
-        .fillMaxWidth()
-        .clickable { navController.navigate(Detail(character.id)) },
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalAlignment = Alignment.CenterVertically
-        ){
-        AsyncImage(
-            model = character.imgUrl,
-            contentDescription = null,
-            contentScale = ContentScale.Fit,
-            modifier =  Modifier
-                .clip(RoundedCornerShape(8.dp))
-                .size(64.dp)
-
+    Card (
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
         )
-        Column(
-            verticalArrangement = Arrangement.Center
+    ){
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { navController.navigate(Detail(character.id)) },
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(character.name, fontWeight = FontWeight.Bold)
-            Text(character.status)
+            AsyncImage(
+                model = character.imgUrl,
+                contentDescription = null,
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(8.dp))
+                    .size(64.dp)
+
+            )
+            Column(
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(character.name, fontWeight = FontWeight.Bold)
+                Text(
+                    character.status,
+                    color = MaterialTheme.colorScheme.tertiary
+                )
+            }
         }
     }
 }
