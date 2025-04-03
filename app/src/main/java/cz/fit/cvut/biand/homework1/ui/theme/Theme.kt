@@ -1,6 +1,5 @@
 package cz.fit.cvut.biand.homework1.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -11,14 +10,15 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
-import cz.fit.cvut.biand.homework1.R
+
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
     secondary = PurpleGrey80,
     tertiary = ForeGroundSecDark,
     surface = DarkGray,
+    onTertiary = NavBarIconBackgroundDark, //NavBar item selected
+
 
     )
 
@@ -31,10 +31,11 @@ private val LightColorScheme = lightColorScheme(
     surface = Color.White,
     onPrimary = Color.White,
     onSecondary = Color.White,
-    onTertiary = Color.White,
+    onTertiary = NavBarIconBackgroundLight,
     onBackground = Color(0xFF1C1B1F),
     onSurface = Color(0xFF1C1B1F),
     outline = Color(0xFFE7E7EC),
+
 
 
 )

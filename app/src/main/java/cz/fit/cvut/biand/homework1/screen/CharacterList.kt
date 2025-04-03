@@ -89,7 +89,8 @@ fun CharacterList(navController: NavController) {
                         selectedIconColor = MaterialTheme.colorScheme.primary,
                         selectedTextColor = MaterialTheme.colorScheme.primary,
                         unselectedIconColor = Color(0xB3B3B3FE),
-                        unselectedTextColor =  Color(0xB3B3B3FE)
+                        unselectedTextColor =  Color(0xB3B3B3FE),
+                        indicatorColor = MaterialTheme.colorScheme.onTertiary
                     )
                     )
                 NavigationBarItem(
@@ -101,7 +102,8 @@ fun CharacterList(navController: NavController) {
                         selectedIconColor = MaterialTheme.colorScheme.primary,
                         selectedTextColor = MaterialTheme.colorScheme.primary,
                         unselectedIconColor = Color(0xB3B3B3FE),
-                        unselectedTextColor =  Color(0xB3B3B3FE)
+                        unselectedTextColor =  Color(0xB3B3B3FE),
+                        indicatorColor = MaterialTheme.colorScheme.onTertiary
                     )
                 )
             }
