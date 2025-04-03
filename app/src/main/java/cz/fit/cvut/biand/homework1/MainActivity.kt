@@ -19,12 +19,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Homework1Theme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Text (
-                        text = "Hello world!",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+               Navigation()
             }
         }
     }
