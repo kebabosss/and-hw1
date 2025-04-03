@@ -1,6 +1,5 @@
 package cz.fit.cvut.biand.homework1.screen
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -30,8 +28,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -41,7 +37,6 @@ import cz.fit.cvut.biand.homework1.Detail
 import cz.fit.cvut.biand.homework1.R
 import cz.fit.cvut.biand.homework1.SearchViewModel
 import cz.fit.cvut.biand.homework1.model.Character
-import cz.fit.cvut.biand.homework1.model.characters
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,17 +56,22 @@ fun SearchScreen(navController: NavController) {
                 placeholder = { Text("Search characters") },
                 leadingIcon =  {
                     IconButton(onClick = {navController.navigateUp()}){
-                        Icon(painter = painterResource(R.drawable.arrow_left),null,)
+                        Icon(painter = painterResource(R.drawable.arrow_left),null, tint = MaterialTheme.colorScheme.secondary)
                     }
                 },
                 trailingIcon = {
-                    IconButton(onClick = viewModel::clearQuery){
-                        Icon(painter = painterResource(R.drawable.x), null)
+                    if (viewModel.searchQuery != ""){
+                        IconButton(onClick = viewModel::clearQuery){
+                            Icon(painter = painterResource(R.drawable.x), null, tint = MaterialTheme.colorScheme.secondary)
+                        }
                     }
 
                 }
             )
         },
+        colors = SearchBarDefaults.colors(
+            containerColor = MaterialTheme.colorScheme.background
+        ),
         expanded = true,
         onExpandedChange = {  },
     ) {
@@ -90,7 +90,7 @@ fun SearchItem(character: Character, navController: NavController)
 {
     Card (
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
+            containerColor = MaterialTheme.colorScheme.background
         )
     ){
         Row(

@@ -13,18 +13,20 @@ import androidx.compose.ui.platform.LocalContext
 
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
+    primary = Color.White,
+    secondary = Color.White,
     tertiary = ForeGroundSecDark,
     surface = DarkGray,
     onTertiary = NavBarIconBackgroundDark, //NavBar item selected
+    outlineVariant = Color(0xFF464646)
+
 
 
     )
 
 private val LightColorScheme = lightColorScheme(
     primary = BluePrimary,
-    secondary = Color(0xFFE0E0FF),
+    secondary = Color.Black,
     tertiary = ForeGroundSecLight, //Sorry about that
 
     background = Color(0xFFF4F4F9),
@@ -34,7 +36,7 @@ private val LightColorScheme = lightColorScheme(
     onTertiary = NavBarIconBackgroundLight,
     onBackground = Color(0xFF1C1B1F),
     onSurface = Color(0xFF1C1B1F),
-    outline = Color(0xFFE7E7EC),
+    outlineVariant = Color(0xFFE7E7EC),
 
 
 

@@ -1,7 +1,5 @@
 package cz.fit.cvut.biand.homework1.model
 
-import androidx.compose.foundation.lazy.layout.IntervalList
-
 data class Character (
     val id : Int,
     val name : String,

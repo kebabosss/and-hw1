@@ -1,5 +1,6 @@
 package cz.fit.cvut.biand.homework1.screen
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -39,6 +41,7 @@ import coil.compose.AsyncImage
 import cz.fit.cvut.biand.homework1.R
 import cz.fit.cvut.biand.homework1.model.Character
 import cz.fit.cvut.biand.homework1.model.characters
+import cz.fit.cvut.biand.homework1.ui.theme.BluePrimary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,7 +64,14 @@ fun CharacterDetail(navController: NavController, id : Int) {
                         {
                             if(liked) {
                                 Icon(
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    tint = if (isSystemInDarkTheme())
+                                    {
+                                        Color(0xFF6E6ED7)
+                                    }
+                                    else
+                                    {
+                                        BluePrimary
+                                    },
                                     painter = painterResource(id = R.drawable.star_full_blue),
                                     contentDescription = null
                                 )
@@ -69,7 +79,8 @@ fun CharacterDetail(navController: NavController, id : Int) {
                             else{
                                 Icon(
                                     painter = painterResource(id = R.drawable.star_empty),
-                                    contentDescription = null
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.secondary
                                 )
                             }
 
